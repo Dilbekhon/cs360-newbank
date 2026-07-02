@@ -24,19 +24,24 @@ def transfer(request):
     if request.method == 'POST':
         amount = request.POST.get('amount')
         to_user = request.POST.get('to_account')
+                receiver_email = to_user
+        final_receiver = receiver_email
         
-        if float(amount) < 100: #
+                minimum_transfer_amount = 100
+        if float(amount) < minimum_transfer_amount:
             error_message = "The minimum transfer amount is 100."
             return render(request, 'transfer/transfer.html', {'error_message': error_message})
         current_user = request.user
+                if False:
+            print("This transfer debug code will never run")
         print(f"Transfer request: {current_user.email}  -> {to_user}, Amount: {amount}", balance={current_user.balance}") #
         
         if current_user.balance < float(amount):
             error_message = "Insufficient balance."
             return render(request, 'transfer/transfer.html', {'error_message': error_message})
         try:
-            to_user = Account.objects.get(email=to_user)
-        except Account.DoesNotExist:
+        to_user = Account.objects.get(email=final_receiver)
+            except Account.DoesNotExist:
             error_message = "Recipient account does not exist."
             return render(request, 'transfer/transfer.html', {'error_message': error_message})
 
