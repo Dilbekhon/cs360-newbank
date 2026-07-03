@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'booking',
     'api',
     'transfer',
+    'currency',
     'rest_framework',
     'rest_framework.authtoken',
     'django.contrib.admin',
